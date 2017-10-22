@@ -15,10 +15,14 @@ $db = new Database();
 			$img_Name = $_FILES['image']['name'];
 			$img_size = $_FILES['image']['size'];
 			$img_temp = $_FILES['image']['tmp_name'];
-			$folder = "uploads/";
 
-			move_uploaded_file($img_temp, $folder.$img_Name);
-			$query = "INSERT INTO tbl_image(image) VALUES ('$img_Name')";
+			$div = explode('.', $img_Name);
+			$file_ext = strtolower(end($div));
+			$uniue_image = "uploads/".substr(md5(time()), 0 , 10).'.'.$file_ext;
+
+
+			move_uploaded_file($img_temp, $uniue_image);
+			$query = "INSERT INTO tbl_image(image) VALUES ('$uniue_image')";
 			$insert = $db->insert($query);
 			if ($insert) {
 				echo "<span class='success'>Image Uploaded Successfully!!</span>";
