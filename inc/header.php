@@ -11,6 +11,8 @@
 		.mainoption{min-height: 420px; padding:20px;}
 		.myform{width: 500px; border: 1px solid #999; margin: 0px auto; padding:10px 20px 20px;}
 		input[type="submit"],input[type="file"] {cursor:pointer;}
+		.success{color: green;font-size: 18px;display: block;margin-top: 10px;}
+		.error{color: red;font-size: 18px;display: block;margin-top: 10px;}
 	</style>
 </head>
 <body>
