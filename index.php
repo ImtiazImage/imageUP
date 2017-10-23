@@ -61,8 +61,57 @@ $db = new Database();
 		</tr>
 	</table>
 </form>
+<table width="100%">
+	<tr>
+		<th width="30%">No.</th>
+		<th width="40%">Image</th>
+		<th width="30%">Action</th>
+	</tr>
+<?php
+if (isset($_GET['del'])) {
+	$id = $_GET['del'];
+
+	//unlink image
+	$query = "SELECT * FROM tbl_image where id='$id'";
+	$getImg= $db->read($query);
+	if ($getImg) {
+	while ($imgres = $getImg->fetch_assoc()){
+		$delimg = $imgres['image'];
+		unlink($delimg);
+		}
+	}
+
+	$query = "DELETE FROM tbl_image WHERE id=$id";
+	$delImage=$db->delete($query);				
+	if ($delImage) {
+		echo "<span class='success'>Image Deleted Successfully!!</span>";
+	}else{
+		echo "<span class='error'>Image Not Deleted Successfully!!</span>";
+	}
+}
+?>
+
+<?php
+$query = "SELECT * FROM tbl_image";
+$getImage= $db->read($query);
+if ($getImage) {
+	$i=0;
+	while ($result = $getImage->fetch_assoc()) {
+		$i++;
+?>
+
+	<tr>
+		<td><?php echo $i; ?></td>
+		<td><img src="<?php echo $result['image'];?>" height="40px" width="50px"/></td>
+		<td> <a href="?del=<?php echo $result['id']; ?>">Delete</a> </td>
+	</tr>
+
+<?php
+	}
+}
+?>
+
+</table>
 </div>
-
-
 
 <?php include 'inc/footer.php'; ?>

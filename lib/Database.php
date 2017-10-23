@@ -40,7 +40,16 @@ class Database{
 	public function read($query){
 		$read_row = $this->link->query($query) or die ($this->link->error.__LINE__);
 		if($read_row->num_rows > 0){
-			return $read;
+			return $read_row;
+		}else{
+			return false;
+		}
+	}
+//Delete Image/Data function
+	public function delete($query){
+		$delete = $this->link->query($query) or die ($this->link->error.__LINE__);
+		if($delete){
+			return $delete;
 		}else{
 			return false;
 		}
